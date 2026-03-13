@@ -1,7 +1,6 @@
 import { prisma } from "@/app/lib/prisma";
 import { NextResponse } from "next/server";
 
-// READ - ดึง posts ทั้งหมด
 export async function GET() {
   const posts = await prisma.post.findMany({
     include: {
@@ -12,7 +11,6 @@ export async function GET() {
   return NextResponse.json(posts);
 }
 
-// CREATE - สร้าง post
 export async function POST(req: Request) {
   const body = await req.json();
 
@@ -20,15 +18,14 @@ export async function POST(req: Request) {
     data: {
       title: body.title,
       content: body.content,
-      published: true,   // กำหนดค่า default
-      authorId: 1,       // ใช้ user id 1 ก่อน
+      published: true,   
+      authorId: 1,       
     },
   });
 
   return NextResponse.json(post);
 }
 
-// UPDATE - แก้ไข post
 export async function PUT(req: Request) {
   const body = await req.json();
 
@@ -46,7 +43,6 @@ export async function PUT(req: Request) {
   return NextResponse.json(post);
 }
 
-// DELETE - ลบ post
 export async function DELETE(req: Request) {
   const body = await req.json();
 
